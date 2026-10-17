@@ -157,4 +157,4 @@ SIMPLE_JWT = {
 }
 
 
-
+GOOGLE_CLIENT_ID = "http://435796752812-kc94u6qq3m9avrc6h9kodmfso714rod6.apps.googleusercontent.com"

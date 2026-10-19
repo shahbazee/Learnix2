@@ -13,6 +13,8 @@ from rest_framework.permissions import (
                                 IsAuthenticatedOrReadOnly)
 
 from .forms import CourseForm
+from accounts.models import User
+
 from .models import Category, Course, Module
 from enrollments.models import Enrollment, LessonProgress
 from enrollments.services import check_course_completion
@@ -187,4 +189,16 @@ class LandingTemplateView(TemplateView):
         context["categories"] = Category.objects.filter(is_active=True).annotate(
             published_courses_count=Count("courses", filter=Q(courses__status=Course.STATUS_PUBLISHED))
         )
+        context["instructors"] = User.objects.filter(
+            role=User.ROLE_INSTRUCTOR, courses__status=Course.STATUS_PUBLISHED
+        ).distinct()
+        return context
+
+
+class AboutTemplateView(TemplateView):
+    template_name = "about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.filter(is_active=True)
         return context

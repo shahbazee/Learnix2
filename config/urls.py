@@ -3,7 +3,8 @@ from django.contrib.auth.views import LogoutView
 from django.urls import include, path
 from courses.views import AboutTemplateView, CourseCreateTemplateView, CourseDetailTemplateView, CourseListTemplateView, CourseUpdateTemplateView, LandingTemplateView, LessonDetailTemplateView
 from accounts.views import GoogleTemplateLoginView, LoginTemplateView, SignupTemplateView
-from enrollments.views import CertificateVerifyTemplateView, MyCertificatesTemplateView, MyLearningTemplateView
+from enrollments.views import CertificateVerifyTemplateView, EnrollFreeTemplateView, MyCertificatesTemplateView, MyLearningTemplateView
+from payments.views import CheckoutTemplateView
 
 
 urlpatterns = [
@@ -26,4 +27,6 @@ urlpatterns = [
     path("instructor/courses/<slug:slug>/edit/", CourseUpdateTemplateView.as_view(), name="course-edit"),
     path("about/", AboutTemplateView.as_view(), name="about"),
     path("logout/", LogoutView.as_view(next_page="/"), name="logout"),
+    path("checkout/<slug:slug>/", CheckoutTemplateView.as_view(), name="checkout"),
+    path("enroll/<slug:slug>/", EnrollFreeTemplateView.as_view(), name="enroll-free"),
 ]

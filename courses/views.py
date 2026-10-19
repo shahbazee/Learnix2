@@ -101,6 +101,14 @@ class CourseDetailTemplateView(DetailView):
     def get_queryset(self):
         return Course.objects.filter(status=Course.STATUS_PUBLISHED)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context["is_enrolled"] = user.is_authenticated and Enrollment.objects.filter(
+            student=user, course=self.object
+        ).exists()
+        return context
+
 
 class LessonDetailTemplateView(LoginRequiredMixin, DetailView):
     model = Lesson

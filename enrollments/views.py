@@ -1,6 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
+from django.views import View
 from django.views.generic import ListView, DetailView
 from rest_framework import status
 from rest_framework.generics import ListAPIView
@@ -122,3 +124,21 @@ class MyLearningTemplateView(LoginRequiredMixin, ListView):
         return Enrollment.objects.filter(student=self.request.user)
 
 
+
+
+class EnrollFreeTemplateView(LoginRequiredMixin, View):
+    def post(self, request, slug):
+        course = get_object_or_404(Course, slug=slug, status=Course.STATUS_PUBLISHED)
+        if not course.is_free:
+            messages.error(request, "This course is not free.")
+            return redirect("course-detail", slug=slug)
+        Enrollment.objects.get_or_create(
+            student=request.user,
+            course=course,
+            defaults={
+                "source": Enrollment.SOURCE_FREE,
+                "status": Enrollment.STATUS_ACTIVE,
+            },
+        )
+        messages.success(request, f"You are now enrolled in {course.title}!")
+        return redirect("my-learning")

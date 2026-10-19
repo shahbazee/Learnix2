@@ -126,16 +126,32 @@
         </div>
 
         <div>
-          {% if user.is_authenticated %}
-          <a href="{% url 'my-learning' %}" class="w-full py-3.5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 hover:opacity-95 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
-            <span>Go to My Learning</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </a>
-          {% else %}
+          {% if not user.is_authenticated %}
           <a href="{% url 'login' %}" class="w-full py-3.5 rounded-full bg-gradient-to-r from-violet-600 via-purple-600 to-pink-500 hover:opacity-95 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
             <span>Sign In to Enroll</span>
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </a>
+          {% elif is_enrolled %}
+          <a href="{% url 'my-learning' %}" class="w-full py-3.5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 hover:opacity-95 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+            <span>Go to My Learning</span>
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+          {% elif course.is_free %}
+          <form method="post" action="{% url 'enroll-free' slug=course.slug %}">
+            {% csrf_token %}
+            <button type="submit" class="w-full py-3.5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 hover:opacity-95 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <span>Enroll Now — Free</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </form>
+          {% else %}
+          <form method="post" action="{% url 'checkout' slug=course.slug %}">
+            {% csrf_token %}
+            <button type="submit" class="w-full py-3.5 rounded-full bg-gradient-to-r from-violet-600 via-purple-600 to-pink-500 hover:opacity-95 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer">
+              <span>Buy Now — ${{ course.price }}</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </button>
+          </form>
           {% endif %}
         </div>
 

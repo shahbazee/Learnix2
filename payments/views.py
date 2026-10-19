@@ -1,6 +1,10 @@
 import stripe
 from django.conf import settings
-from django.shortcuts import get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.views import View
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -101,3 +105,45 @@ class StripeWebhookView(APIView):
                 defaults={"source": Enrollment.SOURCE_PAID},
             )
         return Response(status=status.HTTP_200_OK)
+
+class CheckoutTemplateView(LoginRequiredMixin, View):
+    def post(self, request, slug):
+        course = get_object_or_404(
+            Course, slug=slug, status=Course.STATUS_PUBLISHED
+        )
+        if course.is_free or course.price <= 0:
+            messages.error(request, "This course is free.")
+            return redirect("course-detail", slug=slug)
+        if Enrollment.objects.filter(
+            student=request.user, course=course
+        ).exists():
+            messages.info(request, "You are already enrolled in this course.")
+            return redirect("my-learning")
+        payment = Payment.objects.create(
+            student=request.user,
+            course=course,
+            amount=course.price,
+            currency="USD",
+            status=Payment.STATUS_PENDING,
+        )
+        session = stripe.checkout.Session.create(
+            mode="payment",
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "usd",
+                        "unit_amount": int(course.price * 100),
+                        "product_data": {"name": course.title},
+                    },
+                    "quantity": 1,
+                }
+            ],
+            success_url=request.build_absolute_uri(reverse("my-learning")),
+            cancel_url=request.build_absolute_uri(
+                reverse("course-detail", kwargs={"slug": slug})
+            ),
+            metadata={"payment_id": payment.id},
+        )
+        payment.stripe_session_id = session.id
+        payment.save(update_fields=["stripe_session_id"])
+        return redirect(session.url)

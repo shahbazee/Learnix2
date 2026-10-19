@@ -1,0 +1,23 @@
+<footer class="relative z-10 w-full mt-24 border-t border-slate-200/60 bg-white/60 backdrop-blur-xl">
+  <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2.5">
+      {% include 'includes/_logo.html' with size="w-7 h-7" unique_id="footer" %}
+      <span class="text-base font-extrabold tracking-tight text-[#0f172a]">Learnix</span>
+    </div>
+
+    <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 font-medium">
+      <a href="{% url 'home' %}" class="hover:text-violet-700 transition-colors">Explore Catalog</a>
+      {% if user.is_authenticated %}
+      <a href="{% url 'my-learning' %}" class="hover:text-violet-700 transition-colors">My Learning</a>
+      <a href="{% url 'my-certificates' %}" class="hover:text-violet-700 transition-colors">Certificates</a>
+      {% else %}
+      <a href="{% url 'login' %}" class="hover:text-violet-700 transition-colors">Sign In</a>
+      <a href="{% url 'signup' %}" class="hover:text-violet-700 transition-colors">Get Started</a>
+      {% endif %}
+    </div>
+
+    <div class="text-[11px] text-slate-400 text-center md:text-right">
+      &copy; {% now "Y" %} Learnix. All rights reserved.
+    </div>
+  </div>
+</footer>

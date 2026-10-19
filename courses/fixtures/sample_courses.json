@@ -1,0 +1,550 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "email": "elena_rostova@learnix.com",
+      "display_name": "Elena Rostova",
+      "role": "instructor",
+      "password": "!",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "email": "alex_vance@learnix.com",
+      "display_name": "Alex Vance",
+      "role": "instructor",
+      "password": "!",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "email": "marcus_jin@learnix.com",
+      "display_name": "Marcus Jin",
+      "role": "instructor",
+      "password": "!",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "email": "sarah_lin@learnix.com",
+      "display_name": "Sarah Lin",
+      "role": "instructor",
+      "password": "!",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "email": "devon_hayes@learnix.com",
+      "display_name": "Devon Hayes",
+      "role": "instructor",
+      "password": "!",
+      "email_verified": true
+    }
+  },
+  {
+    "model": "courses.category",
+    "pk": 1,
+    "fields": {
+      "name": "Python & Django",
+      "slug": "python-django",
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "courses.category",
+    "pk": 2,
+    "fields": {
+      "name": "Machine Learning & LLMs",
+      "slug": "ml-llms",
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "courses.category",
+    "pk": 3,
+    "fields": {
+      "name": "System Design",
+      "slug": "system-design",
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "courses.category",
+    "pk": 4,
+    "fields": {
+      "name": "Cloud & DevOps",
+      "slug": "cloud-devops",
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "courses.category",
+    "pk": 5,
+    "fields": {
+      "name": "Zero-Trust Security",
+      "slug": "security",
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "courses.category",
+    "pk": 6,
+    "fields": {
+      "name": "Distributed Data",
+      "slug": "distributed-data",
+      "description": "",
+      "is_active": true
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 1,
+    "fields": {
+      "instructor": 1,
+      "category": 1,
+      "title": "Full-Stack Django 5 & Multi-Agent AI",
+      "slug": "full-stack-django-5-multi-agent-ai",
+      "summary": "Build autonomous multi-agent swarms with LangGraph, Django 5 async websockets, PGVector embeddings, and sub-50ms inference orchestration.",
+      "price": "89.00",
+      "is_free": false,
+      "status": "published",
+      "published_at": null
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 1,
+    "fields": {
+      "course": 1,
+      "title": "Foundations: Asynchronous Django & Channels",
+      "description": "",
+      "position": 1
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 1,
+    "fields": {
+      "module": 1,
+      "title": "1.1 Architecture Overview & ASGI Event Loops",
+      "body": "Lesson content for '1.1 Architecture Overview & ASGI Event Loops'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 2,
+    "fields": {
+      "module": 1,
+      "title": "1.2 WebSockets & ASGI Handlers Setup",
+      "body": "Lesson content for '1.2 WebSockets & ASGI Handlers Setup'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 3,
+    "fields": {
+      "module": 1,
+      "title": "1.3 Redis Pub/Sub Layer Integration",
+      "body": "Lesson content for '1.3 Redis Pub/Sub Layer Integration'. Detailed material will be added by the instructor.",
+      "position": 3,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 4,
+    "fields": {
+      "module": 1,
+      "title": "1.4 ASGI Middleware & Cryptographic Handshakes",
+      "body": "Lesson content for '1.4 ASGI Middleware & Cryptographic Handshakes'. Detailed material will be added by the instructor.",
+      "position": 4,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 2,
+    "fields": {
+      "course": 1,
+      "title": "Agentic Workflows with LangGraph & Django",
+      "description": "",
+      "position": 2
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 5,
+    "fields": {
+      "module": 2,
+      "title": "2.1 Multi-Agent State Graph Architecture",
+      "body": "Lesson content for '2.1 Multi-Agent State Graph Architecture'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 6,
+    "fields": {
+      "module": 2,
+      "title": "2.2 Tool Calling & ReAct Execution Loops",
+      "body": "Lesson content for '2.2 Tool Calling & ReAct Execution Loops'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 7,
+    "fields": {
+      "module": 2,
+      "title": "2.3 Human-in-the-Loop Interrupt Workflows",
+      "body": "Lesson content for '2.3 Human-in-the-Loop Interrupt Workflows'. Detailed material will be added by the instructor.",
+      "position": 3,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 3,
+    "fields": {
+      "course": 1,
+      "title": "Vector Databases & Hybrid Search Indexing",
+      "description": "",
+      "position": 3
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 8,
+    "fields": {
+      "module": 3,
+      "title": "3.1 Qdrant Vector Cluster Deployment",
+      "body": "Lesson content for '3.1 Qdrant Vector Cluster Deployment'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 9,
+    "fields": {
+      "module": 3,
+      "title": "3.2 Dense vs Sparse Vector Hybrids",
+      "body": "Lesson content for '3.2 Dense vs Sparse Vector Hybrids'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 2,
+    "fields": {
+      "instructor": 2,
+      "category": 3,
+      "title": "Distributed Systems in Rust & Go",
+      "slug": "distributed-systems-rust-go",
+      "summary": "Master Raft consensus, concurrent actor models, sharded distributed key-value stores, and fault-tolerant network topologies under extreme partition failure.",
+      "price": "99.00",
+      "is_free": false,
+      "status": "published",
+      "published_at": null
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 4,
+    "fields": {
+      "course": 2,
+      "title": "Raft Consensus & Distributed Log Replication",
+      "description": "",
+      "position": 1
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 10,
+    "fields": {
+      "module": 4,
+      "title": "1.1 Leader Election State Transitions",
+      "body": "Lesson content for '1.1 Leader Election State Transitions'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 11,
+    "fields": {
+      "module": 4,
+      "title": "1.2 Log Invariants & Snapshotting",
+      "body": "Lesson content for '1.2 Log Invariants & Snapshotting'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 12,
+    "fields": {
+      "module": 4,
+      "title": "1.3 Network Split-Brain Simulations",
+      "body": "Lesson content for '1.3 Network Split-Brain Simulations'. Detailed material will be added by the instructor.",
+      "position": 3,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 5,
+    "fields": {
+      "course": 2,
+      "title": "High-Performance Sharding Topologies",
+      "description": "",
+      "position": 2
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 13,
+    "fields": {
+      "module": 5,
+      "title": "2.1 Consistent Hashing with Virtual Nodes",
+      "body": "Lesson content for '2.1 Consistent Hashing with Virtual Nodes'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 14,
+    "fields": {
+      "module": 5,
+      "title": "2.2 Multi-Paxos and Dynamic Membership",
+      "body": "Lesson content for '2.2 Multi-Paxos and Dynamic Membership'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 3,
+    "fields": {
+      "instructor": 3,
+      "category": 4,
+      "title": "High-Scale Kubernetes & Cloud Architecture",
+      "slug": "high-scale-kubernetes-cloud-architecture",
+      "summary": "Custom CRDs, zero-downtime deployments with Istio, multi-region cluster federation, and eBPF kernel network monitoring in live production clusters.",
+      "price": "119.00",
+      "is_free": false,
+      "status": "published",
+      "published_at": null
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 6,
+    "fields": {
+      "course": 3,
+      "title": "Advanced Operator SDK & Custom Resource Controllers",
+      "description": "",
+      "position": 1
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 15,
+    "fields": {
+      "module": 6,
+      "title": "1.1 Controller-Runtime Architecture",
+      "body": "Lesson content for '1.1 Controller-Runtime Architecture'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 16,
+    "fields": {
+      "module": 6,
+      "title": "1.2 Reconcile Loops & Finalizers",
+      "body": "Lesson content for '1.2 Reconcile Loops & Finalizers'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 17,
+    "fields": {
+      "module": 6,
+      "title": "1.3 Multi-Cluster Global Ingress Meshes",
+      "body": "Lesson content for '1.3 Multi-Cluster Global Ingress Meshes'. Detailed material will be added by the instructor.",
+      "position": 3,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 4,
+    "fields": {
+      "instructor": 4,
+      "category": 2,
+      "title": "Production LLMs: RAG & Fine-Tuning",
+      "slug": "production-llms-rag-fine-tuning",
+      "summary": "QLoRA parameter-efficient training, reranking with hybrid sparse-dense vectors, evaluation pipelines, and low-latency vLLM inference clusters.",
+      "price": "95.00",
+      "is_free": false,
+      "status": "published",
+      "published_at": null
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 7,
+    "fields": {
+      "course": 4,
+      "title": "Quantized Model LoRA Architectures",
+      "description": "",
+      "position": 1
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 18,
+    "fields": {
+      "module": 7,
+      "title": "1.1 4-bit NormalFloat & Double Quantization",
+      "body": "Lesson content for '1.1 4-bit NormalFloat & Double Quantization'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 19,
+    "fields": {
+      "module": 7,
+      "title": "1.2 Supervised Fine-Tuning on Custom Corpora",
+      "body": "Lesson content for '1.2 Supervised Fine-Tuning on Custom Corpora'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 5,
+    "fields": {
+      "instructor": 5,
+      "category": 5,
+      "title": "Modern Web Security & Zero-Trust",
+      "slug": "modern-web-security-zero-trust",
+      "summary": "mTLS handshakes, OAuth2.1 + PKCE flows, continuous device attestation, supply chain SBOM verification, and defense against sub-domain takeovers.",
+      "price": "79.00",
+      "is_free": false,
+      "status": "published",
+      "published_at": null
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 8,
+    "fields": {
+      "course": 5,
+      "title": "Identity Foundation & Cryptographic Tokens",
+      "description": "",
+      "position": 1
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 20,
+    "fields": {
+      "module": 8,
+      "title": "1.1 PKCE Authorization Code Flows",
+      "body": "Lesson content for '1.1 PKCE Authorization Code Flows'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 21,
+    "fields": {
+      "module": 8,
+      "title": "1.2 Mutual TLS & SPIFFE/SPIRE Attestation",
+      "body": "Lesson content for '1.2 Mutual TLS & SPIFFE/SPIRE Attestation'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.course",
+    "pk": 6,
+    "fields": {
+      "instructor": 4,
+      "category": 6,
+      "title": "High-Throughput Vector Databases & Embeddings",
+      "slug": "high-throughput-vector-databases-embeddings",
+      "summary": "Architect HNSW graph indices, product quantization, scalar compression, and distributed Milvus & Qdrant sharding for billion-scale retrieval.",
+      "price": "119.00",
+      "is_free": false,
+      "status": "published",
+      "published_at": null
+    }
+  },
+  {
+    "model": "courses.module",
+    "pk": 9,
+    "fields": {
+      "course": 6,
+      "title": "Vector Indexing Math & HNSW Graphs",
+      "description": "",
+      "position": 1
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 22,
+    "fields": {
+      "module": 9,
+      "title": "1.1 Approximate Nearest Neighbor Math",
+      "body": "Lesson content for '1.1 Approximate Nearest Neighbor Math'. Detailed material will be added by the instructor.",
+      "position": 1,
+      "is_published": true
+    }
+  },
+  {
+    "model": "courses.lesson",
+    "pk": 23,
+    "fields": {
+      "module": 9,
+      "title": "1.2 Product Quantization & Cache Alignment",
+      "body": "Lesson content for '1.2 Product Quantization & Cache Alignment'. Detailed material will be added by the instructor.",
+      "position": 2,
+      "is_published": true
+    }
+  }
+]

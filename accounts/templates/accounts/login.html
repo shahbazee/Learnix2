@@ -59,6 +59,33 @@
 
     </form>
 
+    {% if google_client_id %}
+    <!-- Social Sign In Divider -->
+    <div class="my-6 flex items-center gap-3">
+      <div class="flex-1 h-px bg-slate-200"></div>
+      <span class="text-[11px] font-mono text-slate-400 uppercase">Or continue with</span>
+      <div class="flex-1 h-px bg-slate-200"></div>
+    </div>
+
+    <!-- Google Sign In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <div id="g_id_onload"
+         data-client_id="{{ google_client_id }}"
+         data-login_uri="{{ request.scheme }}://{{ request.get_host }}{% url 'google-complete' %}"
+         data-auto_prompt="false">
+    </div>
+    <div class="flex justify-center">
+      <div class="g_id_signin"
+           data-type="standard"
+           data-shape="pill"
+           data-theme="outline"
+           data-text="continue_with"
+           data-size="large"
+           data-logo_alignment="left">
+      </div>
+    </div>
+    {% endif %}
+
     <!-- Sign Up Link -->
     <div class="mt-6 pt-6 border-t border-slate-100 text-center text-xs text-slate-500">
       Don't have an account?

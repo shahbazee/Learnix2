@@ -1,6 +1,10 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model, login
+from django.shortcuts import redirect
 from django.utils import timezone
+from django.utils.decorators import method_decorator
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import FormView
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token as google_id_token
@@ -342,6 +346,11 @@ class LoginTemplateView(FormView):
     form_class = LoginForm
     success_url = "/"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["google_client_id"] = settings.GOOGLE_CLIENT_ID
+        return context
+
     def form_valid(self, form):
         email = form.cleaned_data["email"]
         password = form.cleaned_data["password"]
@@ -361,6 +370,11 @@ class SignupTemplateView(FormView):
     form_class = SignupForm
     success_url = "/"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["google_client_id"] = settings.GOOGLE_CLIENT_ID
+        return context
+
     def form_valid(self, form):
         email = form.cleaned_data["email"]
         if User.objects.filter(email__iexact=email).exists():
@@ -376,3 +390,34 @@ class SignupTemplateView(FormView):
         UserProfile.objects.create(user=user)
         login(self.request, user, backend="django.contrib.auth.backends.ModelBackend")
         return super().form_valid(form)
+
+@method_decorator(csrf_exempt, name="dispatch")
+class GoogleTemplateLoginView(View):
+    def post(self, request):
+        if request.COOKIES.get("g_csrf_token") != request.POST.get("g_csrf_token"):
+            return redirect("login")
+        token = request.POST.get("credential")
+        if not token:
+            return redirect("login")
+        try:
+            idinfo = google_id_token.verify_oauth2_token(
+                token, google_requests.Request(), settings.GOOGLE_CLIENT_ID
+            )
+        except ValueError:
+            return redirect("login")
+        email = idinfo.get("email")
+        if not email or not idinfo.get("email_verified"):
+            return redirect("login")
+        user = User.objects.filter(email__iexact=email).first()
+        if not user:
+            user = User.objects.create_user(
+                email=email.lower(),
+                role="student",
+                display_name=idinfo.get("name", ""),
+            )
+            user.set_unusable_password()
+            user.email_verified = True
+            user.save()
+            UserProfile.objects.create(user=user)
+        login(request, user, backend="django.contrib.auth.backends.ModelBackend")
+        return redirect("/")

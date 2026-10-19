@@ -11,23 +11,40 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 from datetime import timedelta
+import environ
+
+env = environ.Env()
+environ.Env.read_env(BASE_DIR / ".env")
+SECRET_KEY = env("SECRET_KEY")
+DEBUG = env.bool("DEBUG", default=False)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
+
+DATABASES = {"default": env.db()}
+
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="")
+
+GOOGLE_CLIENT_ID = env("GOOGLE_CLIENT_ID")
+
+CELERY_BROKER_URL = env("REDIS_URL")
+CELERY_RESULT_BACKEND = env("REDIS_URL")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$l-y^z#3jlfh0t2m#ml!$#te&=je&)v5io2e15-37(z2npn*@6'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+
+
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost"])
 
 
 # Application definition
@@ -54,6 +71,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'core.middleware.RequestTimingMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,7 +86,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,17 +103,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "learnix",
-        "USER": "learnix",
-        "PASSWORD": "learnix",
-        "HOST": "localhost",
-        "PORT": "5434",
-    }
-}
 
 
 # Password validation
@@ -157,4 +164,31 @@ SIMPLE_JWT = {
 }
 
 
-GOOGLE_CLIENT_ID = "http://435796752812-kc94u6qq3m9avrc6h9kodmfso714rod6.apps.googleusercontent.com"
+
+
+
+EMAIL_BACKEND = "anymail.backends.brevo.EmailBackend"
+ANYMAIL = {
+    "BREVO_API_KEY": env("BREVO_API_KEY"),
+}
+DEFAULT_FROM_EMAIL = "shahbazbutt22ee@gmail.com"
+
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_logger": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "core.middleware": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+    },
+}

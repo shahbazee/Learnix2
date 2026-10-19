@@ -1,6 +1,7 @@
 from django.conf import settings
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.utils import timezone
+from django.views.generic import FormView
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token as google_id_token
 from rest_framework import status
@@ -9,8 +10,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import EmailOTP, UserProfile
+from .forms import LoginForm, SignupForm
+from .models import EmailOTP, UserProfile, User
+from notifications.tasks import send_otp_email
 from .otp_utils import generate_otp, hash_otp, otp_expiry
+from .permissions import IsInstructor
 from .serializers import (
     RegisterSerializer, 
     LoginSerializer, 
@@ -111,7 +115,7 @@ class OTPRequestView(APIView):
             code_hash=hash_otp(code),
             expires_at=otp_expiry(),
         )
-        print(f"OTP for {email}: {code}")
+        send_otp_email.delay(email, code)
         return Response(
             {"detail": "OTP sent to email."},
             status=status.HTTP_200_OK,
@@ -125,7 +129,7 @@ class OTPVerifyView(APIView):
         serializer = OTPVerifySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data["email"]
-        code = serializer.validated_data["code"]
+        otp_code = serializer.validated_data["otp"]
         try:
             user = User.objects.get(email__iexact=email)
         except User.DoesNotExist:
@@ -155,7 +159,7 @@ class OTPVerifyView(APIView):
                 {"detail": "Invalid OTP."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        if otp.code_hash != hash_otp(code):
+        if otp.code_hash != hash_otp(otp_code):
             otp.attempts += 1
             otp.save(update_fields=["attempts"])
             return Response(
@@ -191,7 +195,7 @@ class PasswordResetRequestView(APIView):
                 code_hash=hash_otp(code),
                 expires_at=otp_expiry(),
             )
-            print(f"Password reset OTP for {email}: {code}")
+            send_otp_email.delay(email, code)
         return Response(
             {"detail": "If the email exists, an OTP has been sent."},
             status=status.HTTP_200_OK,
@@ -205,7 +209,7 @@ class PasswordResetConfirmView(APIView):
         serializer = PasswordResetConfirmSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data["email"]
-        code = serializer.validated_data["code"]
+        otp_code = serializer.validated_data["otp"]
         new_password = serializer.validated_data["new_password"]
         try:
             user = User.objects.get(email__iexact=email)
@@ -236,7 +240,7 @@ class PasswordResetConfirmView(APIView):
                 {"detail": "Invalid OTP."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        if otp.code_hash != hash_otp(code):
+        if otp.code_hash != hash_otp(otp_code):
             otp.attempts += 1
             otp.save(update_fields=["attempts"])
             return Response(
@@ -324,3 +328,51 @@ class GoogleLoginView(APIView):
             },
             status=status.HTTP_200_OK,
 )
+
+
+class InstructorTestView(APIView):
+    permission_classes = [IsInstructor]
+
+    def get(self, request):
+        return Response({"detail": "You are an instructor."})
+
+
+class LoginTemplateView(FormView):
+    template_name = "accounts/login.html"
+    form_class = LoginForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        email = form.cleaned_data["email"]
+        password = form.cleaned_data["password"]
+        try:
+            user = User.objects.get(email__iexact=email)
+        except User.DoesNotExist:
+            user = None
+        if user is None or not user.check_password(password):
+            form.add_error(None, "Invalid credentials.")
+            return self.form_invalid(form)
+        login(self.request, user, backend="django.contrib.auth.backends.ModelBackend")
+        return super().form_valid(form)
+
+
+class SignupTemplateView(FormView):
+    template_name = "accounts/signup.html"
+    form_class = SignupForm
+    success_url = "/"
+
+    def form_valid(self, form):
+        email = form.cleaned_data["email"]
+        if User.objects.filter(email__iexact=email).exists():
+            form.add_error("email", "Email already registered.")
+            return self.form_invalid(form)
+        user = User(
+            email=email,
+            display_name=form.cleaned_data["display_name"],
+            role="student",
+        )
+        user.set_password(form.cleaned_data["password"])
+        user.save()
+        UserProfile.objects.create(user=user)
+        login(self.request, user, backend="django.contrib.auth.backends.ModelBackend")
+        return super().form_valid(form)

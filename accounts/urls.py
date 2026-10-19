@@ -10,6 +10,7 @@ from .views import (
     PasswordResetConfirmView,
     PasswordChangeView,
     GoogleLoginView,
+    InstructorTestView,
     )
 
 
@@ -22,5 +23,7 @@ urlpatterns = [
     path("password/reset/", PasswordResetRequestView.as_view(), name="password-reset"),
     path("password/reset/confirm/", PasswordResetConfirmView.as_view(), name="password-reset-confirm"),
     path("password/change/", PasswordChangeView.as_view(), name="password-change"),
-    path("google/", GoogleLoginView.as_view(), name="google-login")
+    path("google/", GoogleLoginView.as_view(), name="google-login"),
+    path("test/instructor/", InstructorTestView.as_view(), name="test-instructor"),
+
 ]

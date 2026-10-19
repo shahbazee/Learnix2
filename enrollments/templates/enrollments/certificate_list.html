@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}My Certificates{% endblock %}
+
+{% block content %}
+<h2>My Certificates</h2>
+{% for certificate in certificates %}
+<p>{{ certificate.course_title }} - {{ certificate.completion_date }}</p>
+{% endfor %}
+{% endblock %}

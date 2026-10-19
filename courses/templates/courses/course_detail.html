@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ course.title }}</h2>
+<p>{{ course.summary }}</p>
+
+{% if course.is_free %}
+<p>Free</p>
+{% else %}
+<p>Price: {{ course.price }}</p>
+{% endif %}
+
+<p>Instructor: {{ course.instructor.display_name }}</p>
+
+{% for module in course.modules.all %}
+<h3>{{ module.title }}</h3>
+{% for lesson in module.lessons.all %}
+<p>{{ lesson.title }}</p>
+{% endfor %}
+{% endfor %}
+{% endblock %}

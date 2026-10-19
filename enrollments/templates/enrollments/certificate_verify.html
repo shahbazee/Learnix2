@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify Certificate{% endblock %}
+
+{% block content %}
+<h2>Certificate Valid ✅</h2>
+<p>Student: {{ certificate.student_name }}</p>
+<p>Course: {{ certificate.course_title }}</p>
+<p>Completed: {{ certificate.completion_date }}</p>
+{% endblock %}

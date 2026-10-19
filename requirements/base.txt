@@ -9,3 +9,4 @@ stripe==16.0.0
 drf-spectacular==0.30.0
 Pillow==12.3.0
 reportlab==5.0.1
+google-auth

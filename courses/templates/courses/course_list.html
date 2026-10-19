@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+{% for course in courses %}
+<p><a href="{% url 'course-detail' course.slug %}">{{ course.title }}</a> - {% if course.is_free %}Free{% else %}{{ course.price }}{% endif %}</p>
+{% endfor %}
+{% endblock %}

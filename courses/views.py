@@ -15,7 +15,7 @@ from rest_framework.permissions import (
 from .forms import CourseForm
 from accounts.models import User
 
-from .models import Category, Course, Module
+from .models import Category, Course, Lesson, Module
 from enrollments.models import Enrollment, LessonProgress
 from enrollments.services import check_course_completion
 from .serializers import CourseDetailSerializer, CourseListSerializer, CourseCreateUpdateSerializer, ModuleSerializer, LessonSerializer

@@ -92,6 +92,19 @@ class CourseListTemplateView(ListView):
     def get_queryset(self):
         return Course.objects.filter(status=Course.STATUS_PUBLISHED)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        if user.is_authenticated:
+            context["enrolled_course_ids"] = set(
+                Enrollment.objects.filter(student=user).values_list(
+                    "course_id", flat=True
+                )
+            )
+        else:
+            context["enrolled_course_ids"] = set()
+        return context
+
 
 class CourseDetailTemplateView(DetailView):
     model = Course

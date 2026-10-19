@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}My Learning{% endblock %}
+
+{% block content %}
+<h2>My Learning</h2>
+{% for enrollment in enrollments %}
+<p><a href="{% url 'course-detail' enrollment.course.slug %}">{{ enrollment.course.title }}</a> - {{ enrollment.status }}</p>
+{% endfor %}
+{% endblock %}

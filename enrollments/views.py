@@ -113,3 +113,12 @@ class CertificateVerifyTemplateView(DetailView):
     slug_url_kwarg = "verification_id"
 
 
+class MyLearningTemplateView(LoginRequiredMixin, ListView):
+    model = Enrollment
+    template_name = "enrollments/my_learning.html"
+    context_object_name = "enrollments"
+
+    def get_queryset(self):
+        return Enrollment.objects.filter(student=self.request.user)
+
+

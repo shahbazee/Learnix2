@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+
+{% block title %}Learnix — Master Modern Engineering Faster{% endblock %}
+
+{% block content %}
+<div class="flex flex-col w-full relative overflow-hidden">
+
+  <section class="relative w-full max-w-7xl mx-auto px-4 md:px-8 pt-8 md:pt-16 pb-16 flex flex-col items-center text-center">
+    <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight text-[#0f172a] max-w-4xl mx-auto leading-tight">
+      Master Modern Engineering
+      <span class="block bg-gradient-to-r from-cyan-500 via-violet-600 to-pink-500 bg-clip-text text-transparent drop-shadow-xs">
+        Faster
+      </span>
+    </h1>
+
+    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mt-4 mb-8 leading-relaxed font-normal">
+      Hyper-focused curricula in AI, Distributed Systems, and High-Scale Cloud Infrastructure, taught by expert instructors.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mx-auto">
+      <a href="{% url 'course-list' %}" class="group relative w-full sm:w-auto inline-flex items-center justify-center p-[2px] rounded-full overflow-hidden shadow-[0_12px_32px_-4px_rgba(124,58,237,0.4)] hover:shadow-[0_16px_40px_-2px_rgba(6,182,212,0.5)] hover:scale-[1.02] transition-all duration-300">
+        <span class="absolute inset-0 bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 transition-all duration-500"></span>
+        <span class="relative w-full px-8 py-3.5 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 flex items-center justify-center gap-2 text-white text-sm font-bold">
+          Explore Courses
+          <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <section id="featured" class="w-full max-w-7xl mx-auto px-4 md:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] mb-3">Featured Courses</h2>
+      <p class="text-slate-500 text-sm md:text-base">Start with our most-loved courses</p>
+    </div>
+
+    {% if featured_courses %}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {% for course in featured_courses %}
+      <div class="group relative rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_rgba(79,70,229,0.06)] hover:shadow-[0_20px_45px_rgba(99,102,241,0.14)] hover:border-violet-300 transition-all duration-300 flex flex-col justify-between overflow-hidden">
+        <div class="relative h-48 sm:h-52 w-full overflow-hidden bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500 flex items-center justify-center">
+          <span class="text-6xl font-extrabold text-white/90">{{ course.title|slice:":1"|upper }}</span>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none">
+            {% if course.category %}
+            <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white font-mono text-[11px] font-semibold">
+              {{ course.category.name }}
+            </span>
+            {% else %}
+            <span></span>
+            {% endif %}
+            <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white font-mono text-[11px] font-semibold">
+              {% if course.is_free %}FREE{% else %}${{ course.price }}{% endif %}
+            </span>
+          </div>
+        </div>
+
+        <div class="p-6 flex flex-col flex-grow justify-between gap-6">
+          <div class="space-y-4">
+            <a href="{% url 'course-detail' course.slug %}" class="block group-hover:text-violet-700 transition-colors">
+              <h3 class="text-lg md:text-xl font-bold text-[#0f172a] tracking-tight line-clamp-2">
+                {{ course.title }}
+              </h3>
+            </a>
+
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-violet-600 to-cyan-500 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs overflow-hidden">
+                {% if course.instructor.profile.avatar %}
+                <img src="{{ course.instructor.profile.avatar.url }}" alt="{{ course.instructor.display_name }}" class="w-full h-full object-cover" loading="lazy"/>
+                {% else %}
+                {{ course.instructor.display_name|slice:":1"|upper }}
+                {% endif %}
+              </div>
+              <div class="flex flex-col min-w-0">
+                <span class="text-xs font-bold text-slate-900 truncate">
+                  {{ course.instructor.display_name }}
+                </span>
+                <span class="text-[11px] text-slate-400 font-medium">Instructor</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div class="text-slate-500 font-medium">
+                {{ course.modules.count }} module{{ course.modules.count|pluralize }}
+              </div>
+              <div class="font-extrabold text-sm text-[#0f172a]">
+                {% if course.is_free %}
+                Free
+                {% else %}
+                ${{ course.price }}
+                {% endif %}
+              </div>
+            </div>
+
+            <a href="{% url 'course-detail' course.slug %}" class="w-full py-2.5 rounded-full bg-violet-50 hover:bg-violet-100 text-violet-700 font-bold text-xs text-center transition-colors block">
+              View Course
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="rounded-3xl bg-white/70 backdrop-blur-xl border border-slate-200/80 p-12 text-center max-w-xl mx-auto shadow-sm">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center">
+        <span class="material-symbols-outlined text-[32px]">school</span>
+      </div>
+      <h3 class="text-xl font-bold text-slate-900 mb-2">Courses coming soon</h3>
+      <p class="text-slate-600 text-sm mb-6">Our courses are currently being prepared. Check back soon!</p>
+      <a href="{% url 'course-list' %}" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 text-white font-bold text-xs shadow-md hover:scale-105 transition-all">
+        Explore Catalog
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
+    </div>
+    {% endif %}
+  </section>
+
+  <section id="categories" class="w-full max-w-7xl mx-auto px-4 md:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] mb-3">Explore by Category</h2>
+      <p class="text-slate-500 text-sm md:text-base">Targeted domains crafted for current industry demands</p>
+    </div>
+
+    {% if categories %}
+    <div class="flex flex-wrap items-stretch justify-center gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
+      {% for cat in categories %}
+      <a href="{% url 'course-list' %}" class="group w-[calc(50%-0.5rem)] md:w-[calc(33.333%-1rem)] lg:w-44 xl:w-48 rounded-3xl p-5 sm:p-6 bg-white/95 backdrop-blur-xl border border-slate-200/80 hover:border-violet-300 shadow-[0_6px_24px_rgba(79,70,229,0.05)] hover:shadow-[0_16px_36px_rgba(124,58,237,0.14)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-center justify-between text-center">
+        {% if 'ai' in cat.slug %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-500 text-white flex items-center justify-center mb-3.5 shadow-md shadow-violet-500/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">bolt</span>
+        </div>
+        {% elif 'distributed' in cat.slug %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center mb-3.5 shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">deployed_code</span>
+        </div>
+        {% elif 'cloud' in cat.slug %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-400 to-blue-500 text-white flex items-center justify-center mb-3.5 shadow-md shadow-sky-400/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">cloud</span>
+        </div>
+        {% elif 'data' in cat.slug %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-400 to-teal-500 text-white flex items-center justify-center mb-3.5 shadow-md shadow-emerald-400/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">database</span>
+        </div>
+        {% elif 'security' in cat.slug %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 text-white flex items-center justify-center mb-3.5 shadow-md shadow-pink-500/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">security</span>
+        </div>
+        {% elif 'system' in cat.slug %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-fuchsia-600 text-white flex items-center justify-center mb-3.5 shadow-md shadow-purple-600/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">layers</span>
+        </div>
+        {% elif forloop.counter|divisibleby:2 %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 text-white flex items-center justify-center mb-3.5 shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">lan</span>
+        </div>
+        {% else %}
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-500 text-white flex items-center justify-center mb-3.5 shadow-md shadow-violet-500/25 group-hover:scale-105 transition-transform duration-300">
+          <span class="material-symbols-outlined text-[26px]">bolt</span>
+        </div>
+        {% endif %}
+        <div class="h-10 sm:h-11 flex items-center justify-center w-full px-1 mb-1">
+          <h3 class="text-xs sm:text-sm font-bold text-[#0f172a] group-hover:text-violet-600 transition-colors leading-tight text-center">
+            {{ cat.name }}
+          </h3>
+        </div>
+        <span class="text-[11px] sm:text-xs text-slate-400 font-medium">
+          {{ cat.published_courses_count }} Course{{ cat.published_courses_count|pluralize }}
+        </span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </section>
+
+  <section id="how-it-works" class="w-full max-w-7xl mx-auto px-4 md:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] mb-3">How Learnix Works</h2>
+      <p class="text-slate-500 text-sm md:text-base">A simple path from curious to certified</p>
+    </div>
+
+    <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+      <div class="hidden md:block absolute top-7 left-[16%] right-[16%] h-0.5 bg-gradient-to-r from-violet-200 via-purple-300 to-cyan-200 z-0"></div>
+
+      <div class="relative z-10 flex flex-col items-center text-center">
+        <div class="w-14 h-14 rounded-full bg-violet-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-violet-600/30 mb-5 ring-4 ring-white">
+          1
+        </div>
+        <h3 class="text-base md:text-lg font-bold text-slate-900 mb-2">Choose Your Course</h3>
+        <p class="text-xs md:text-sm text-slate-500 max-w-xs leading-relaxed">Pick a course that matches your goal.</p>
+      </div>
+
+      <div class="relative z-10 flex flex-col items-center text-center">
+        <div class="w-14 h-14 rounded-full bg-violet-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-violet-600/30 mb-5 ring-4 ring-white">
+          2
+        </div>
+        <h3 class="text-base md:text-lg font-bold text-slate-900 mb-2">Learn by Doing</h3>
+        <p class="text-xs md:text-sm text-slate-500 max-w-xs leading-relaxed">Watch lessons and track your progress.</p>
+      </div>
+
+      <div class="relative z-10 flex flex-col items-center text-center">
+        <div class="w-14 h-14 rounded-full bg-violet-600 text-white font-extrabold text-lg flex items-center justify-center shadow-lg shadow-violet-600/30 mb-5 ring-4 ring-white">
+          3
+        </div>
+        <h3 class="text-base md:text-lg font-bold text-slate-900 mb-2">Get Certified</h3>
+        <p class="text-xs md:text-sm text-slate-500 max-w-xs leading-relaxed">Complete the course and earn your verified certificate.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="w-full max-w-7xl mx-auto px-4 md:px-8 py-16">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-[#0f172a] mb-3">Frequently Asked Questions</h2>
+      <p class="text-slate-500 text-sm md:text-base">Everything you need to know about learning with us</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto space-y-4">
+      <div class="rounded-2xl bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-xs overflow-hidden transition-all">
+        <button type="button" aria-expanded="true" aria-controls="faq-ans-1" id="faq-btn-1" class="faq-toggle w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 hover:text-violet-700 transition-colors">
+          <span class="text-sm md:text-base">Do I get a certificate after completing a course?</span>
+          <span class="material-symbols-outlined text-[20px] text-slate-400 transition-transform duration-200 rotate-180">expand_more</span>
+        </button>
+        <div id="faq-ans-1" role="region" aria-labelledby="faq-btn-1" class="faq-content px-5 pb-5 text-xs md:text-sm text-slate-600 leading-relaxed">
+          Yes. Once you complete all lessons in a course, you receive a verified digital certificate with a unique verification ID.
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-xs overflow-hidden transition-all">
+        <button type="button" aria-expanded="false" aria-controls="faq-ans-2" id="faq-btn-2" class="faq-toggle w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 hover:text-violet-700 transition-colors">
+          <span class="text-sm md:text-base">Can I learn at my own pace?</span>
+          <span class="material-symbols-outlined text-[20px] text-slate-400 transition-transform duration-200">expand_more</span>
+        </button>
+        <div id="faq-ans-2" role="region" aria-labelledby="faq-btn-2" class="faq-content hidden px-5 pb-5 text-xs md:text-sm text-slate-600 leading-relaxed">
+          Yes, all courses include lifetime access so you can learn at your own schedule.
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-xs overflow-hidden transition-all">
+        <button type="button" aria-expanded="false" aria-controls="faq-ans-3" id="faq-btn-3" class="faq-toggle w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 hover:text-violet-700 transition-colors">
+          <span class="text-sm md:text-base">Are there free courses?</span>
+          <span class="material-symbols-outlined text-[20px] text-slate-400 transition-transform duration-200">expand_more</span>
+        </button>
+        <div id="faq-ans-3" role="region" aria-labelledby="faq-btn-3" class="faq-content hidden px-5 pb-5 text-xs md:text-sm text-slate-600 leading-relaxed">
+          Yes! Courses marked as Free can be enrolled in instantly at no cost.
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-xs overflow-hidden transition-all">
+        <button type="button" aria-expanded="false" aria-controls="faq-ans-4" id="faq-btn-4" class="faq-toggle w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 hover:text-violet-700 transition-colors">
+          <span class="text-sm md:text-base">What payment methods do you accept?</span>
+          <span class="material-symbols-outlined text-[20px] text-slate-400 transition-transform duration-200">expand_more</span>
+        </button>
+        <div id="faq-ans-4" role="region" aria-labelledby="faq-btn-4" class="faq-content hidden px-5 pb-5 text-xs md:text-sm text-slate-600 leading-relaxed">
+          We accept all major credit and debit cards through Stripe's secure payment infrastructure.
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white/80 backdrop-blur-xl border border-slate-200/80 shadow-xs overflow-hidden transition-all">
+        <button type="button" aria-expanded="false" aria-controls="faq-ans-5" id="faq-btn-5" class="faq-toggle w-full flex items-center justify-between p-5 text-left font-bold text-slate-900 hover:text-violet-700 transition-colors">
+          <span class="text-sm md:text-base">How long do I have access to a course?</span>
+          <span class="material-symbols-outlined text-[20px] text-slate-400 transition-transform duration-200">expand_more</span>
+        </button>
+        <div id="faq-ans-5" role="region" aria-labelledby="faq-btn-5" class="faq-content hidden px-5 pb-5 text-xs md:text-sm text-slate-600 leading-relaxed">
+          You receive lifetime access to all course materials, including future updates.
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.querySelectorAll('.faq-toggle').forEach(function(button) {
+    button.addEventListener('click', function() {
+      var isExpanded = button.getAttribute('aria-expanded') === 'true';
+      var panelId = button.getAttribute('aria-controls');
+      var panel = document.getElementById(panelId);
+      var icon = button.querySelector('.material-symbols-outlined');
+      if (isExpanded) {
+        button.setAttribute('aria-expanded', 'false');
+        if (panel) panel.classList.add('hidden');
+        if (icon) icon.classList.remove('rotate-180');
+      } else {
+        button.setAttribute('aria-expanded', 'true');
+        if (panel) panel.classList.remove('hidden');
+        if (icon) icon.classList.add('rotate-180');
+      }
+    });
+  });
+</script>
+{% endblock %}

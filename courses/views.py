@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
 from rest_framework import generics
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import (
@@ -12,7 +13,7 @@ from rest_framework.permissions import (
                                 IsAuthenticatedOrReadOnly)
 
 from .forms import CourseForm
-from .models import Course, Module
+from .models import Category, Course, Module
 from enrollments.models import Enrollment, LessonProgress
 from enrollments.services import check_course_completion
 from .serializers import CourseDetailSerializer, CourseListSerializer, CourseCreateUpdateSerializer, ModuleSerializer, LessonSerializer
@@ -174,3 +175,14 @@ class CourseUpdateTemplateView(LoginRequiredMixin, UserPassesTestMixin, UpdateVi
 
     def get_success_url(self):
         return reverse("home")
+
+class LandingTemplateView(TemplateView):
+    template_name = "landing.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["featured_courses"] = Course.objects.filter(status=Course.STATUS_PUBLISHED)[:6]
+        context["categories"] = Category.objects.filter(is_active=True).annotate(
+            published_courses_count=Count("courses", filter=Q(courses__status=Course.STATUS_PUBLISHED))
+        )
+        return context

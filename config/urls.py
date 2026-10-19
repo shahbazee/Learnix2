@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
-from courses.views import CourseCreateTemplateView, CourseDetailTemplateView, CourseListTemplateView, CourseUpdateTemplateView, LessonDetailTemplateView
+from courses.views import CourseCreateTemplateView, CourseDetailTemplateView, CourseListTemplateView, CourseUpdateTemplateView, LandingTemplateView, LessonDetailTemplateView
 from accounts.views import LoginTemplateView, SignupTemplateView
 from enrollments.views import CertificateVerifyTemplateView, MyCertificatesTemplateView, MyLearningTemplateView
 
@@ -11,7 +11,8 @@ urlpatterns = [
     path("api/v1/courses/", include("courses.urls")),
     path("api/v1/enrollments/", include("enrollments.urls")),
 
-    path("", CourseListTemplateView.as_view(), name="home"),
+    path("", LandingTemplateView.as_view(), name="home"),
+    path("courses/", CourseListTemplateView.as_view(), name="course-list"),
     path("course/<slug:slug>/", CourseDetailTemplateView.as_view(), name="course-detail"),
     path("login/", LoginTemplateView.as_view(), name="login"),
     path("signup/", SignupTemplateView.as_view(), name="signup"),

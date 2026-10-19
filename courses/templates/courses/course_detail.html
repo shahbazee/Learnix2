@@ -6,7 +6,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-28">
 
   <nav class="flex items-center gap-2 text-xs font-medium text-slate-400 mb-6" aria-label="Breadcrumb">
-    <a href="{% url 'home' %}" class="hover:text-slate-700 transition-colors">Catalog</a>
+    <a href="{% url 'course-list' %}" class="hover:text-slate-700 transition-colors">Catalog</a>
     <span class="text-slate-300">/</span>
     {% if course.category %}
     <span class="hover:text-slate-700 transition-colors">{{ course.category.name }}</span>

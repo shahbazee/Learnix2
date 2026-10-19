@@ -6,7 +6,7 @@
     </div>
 
     <div class="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-600 font-medium">
-      <a href="{% url 'home' %}" class="hover:text-violet-700 transition-colors">Explore Catalog</a>
+      <a href="{% url 'course-list' %}" class="hover:text-violet-700 transition-colors">Explore Catalog</a>
       {% if user.is_authenticated %}
       <a href="{% url 'my-learning' %}" class="hover:text-violet-700 transition-colors">My Learning</a>
       <a href="{% url 'my-certificates' %}" class="hover:text-violet-700 transition-colors">Certificates</a>

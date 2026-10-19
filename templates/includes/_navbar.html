@@ -10,7 +10,7 @@
 
     <!-- Desktop Navigation Pills -->
     <nav class="hidden lg:flex items-center gap-1 p-1 rounded-full bg-slate-100/70 border border-slate-200/50 text-sm font-medium">
-      <a href="{% url 'home' %}" class="px-4 py-1.5 rounded-full transition-all {% if request.resolver_match.view_name == 'home' %}bg-white text-slate-900 shadow-sm font-semibold{% else %}text-slate-600 hover:text-slate-900 hover:bg-white/60{% endif %}">
+      <a href="{% url 'course-list' %}" class="px-4 py-1.5 rounded-full transition-all {% if request.resolver_match.view_name == 'course-list' %}bg-white text-slate-900 shadow-sm font-semibold{% else %}text-slate-600 hover:text-slate-900 hover:bg-white/60{% endif %}">
         Explore Catalog
       </a>
       {% if user.is_authenticated %}
@@ -105,7 +105,7 @@
       </div>
 
       <nav class="flex flex-col gap-3 mt-6 text-sm font-semibold text-slate-700">
-        <a href="{% url 'home' %}" onclick="toggleMobileMenu()" class="p-2.5 rounded-xl hover:bg-violet-50 hover:text-violet-700 transition-colors">Explore Catalog</a>
+        <a href="{% url 'course-list' %}" onclick="toggleMobileMenu()" class="p-2.5 rounded-xl hover:bg-violet-50 hover:text-violet-700 transition-colors">Explore Catalog</a>
         {% if user.is_authenticated %}
         <a href="{% url 'my-learning' %}" onclick="toggleMobileMenu()" class="p-2.5 rounded-xl hover:bg-violet-50 text-violet-700 font-bold transition-colors flex items-center justify-between">
           <span>My Learning</span>

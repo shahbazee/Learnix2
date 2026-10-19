@@ -1,6 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from rest_framework import generics
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import (
@@ -8,7 +11,10 @@ from rest_framework.permissions import (
                                 IsAuthenticated,
                                 IsAuthenticatedOrReadOnly)
 
+from .forms import CourseForm
 from .models import Course, Module
+from enrollments.models import Enrollment, LessonProgress
+from enrollments.services import check_course_completion
 from .serializers import CourseDetailSerializer, CourseListSerializer, CourseCreateUpdateSerializer, ModuleSerializer, LessonSerializer
 from .permissions import IsCourseOwnerOrAdmin, IsInstructorOrAdmin
 
@@ -91,3 +97,80 @@ class CourseDetailTemplateView(DetailView):
 
     def get_queryset(self):
         return Course.objects.filter(status=Course.STATUS_PUBLISHED)
+
+
+class LessonDetailTemplateView(LoginRequiredMixin, DetailView):
+    model = Lesson
+    template_name = "courses/lesson_detail.html"
+    context_object_name = "lesson"
+
+    def get_queryset(self):
+        return Lesson.objects.filter(is_published=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        lesson = self.object
+        try:
+            enrollment = Enrollment.objects.get(
+                student=self.request.user,
+                course=lesson.module.course,
+            )
+        except Enrollment.DoesNotExist:
+            context["not_enrolled"] = True
+            context["is_completed"] = False
+            return context
+        progress = LessonProgress.objects.filter(
+            enrollment=enrollment, lesson=lesson
+        ).first()
+        context["not_enrolled"] = False
+        context["is_completed"] = progress.is_completed if progress else False
+        return context
+
+    def post(self, request, *args, **kwargs):
+        lesson = self.get_object()
+        try:
+            enrollment = Enrollment.objects.get(
+                student=request.user, course=lesson.module.course
+            )
+        except Enrollment.DoesNotExist:
+            return redirect("course-detail", slug=lesson.module.course.slug)
+        progress, _ = LessonProgress.objects.get_or_create(
+            enrollment=enrollment, lesson=lesson
+        )
+        progress.is_completed = True
+        progress.completed_at = timezone.now()
+        progress.save()
+        check_course_completion(enrollment)
+        return redirect("lesson-detail", pk=lesson.pk)
+
+
+class CourseCreateTemplateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    model = Course
+    form_class = CourseForm
+    template_name = "courses/course_form.html"
+
+    def test_func(self):
+        return self.request.user.role in ("instructor", "admin")
+
+    def form_valid(self, form):
+        form.instance.instructor = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("home")
+
+
+class CourseUpdateTemplateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Course
+    form_class = CourseForm
+    template_name = "courses/course_form.html"
+
+    def test_func(self):
+        course = self.get_object()
+        user = self.request.user
+        if user.role == "admin":
+            return True
+        return user.role == "instructor" and course.instructor == user
+
+    def get_success_url(self):
+        return reverse("home")

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ lesson.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ lesson.title }}</h2>
+<p>{{ lesson.body }}</p>
+{% if not_enrolled %}
+<p>Enroll in this course to track progress.</p>
+{% elif is_completed %}
+<p>Completed ✅</p>
+{% else %}
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Mark as Complete</button>
+</form>
+{% endif %}
+{% endblock %}

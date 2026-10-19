@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ course.title }} — Learnix{% endblock %}
 
@@ -55,7 +56,7 @@
       </div>
 
       <div class="relative w-full aspect-video rounded-3xl overflow-hidden bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500 shadow-lg flex items-center justify-center">
-        <span class="text-8xl font-extrabold text-white/90">{{ course.title|slice:":1"|upper }}</span>
+        <img src="{% static 'images/courses/' %}{{ course.slug }}.svg" alt="{{ course.title }}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='{% static 'images/courses/default-course.svg' %}';" loading="lazy"/>
         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent pointer-events-none"></div>
       </div>
 
@@ -106,7 +107,7 @@
       <div class="rounded-3xl bg-white/95 backdrop-blur-xl border border-slate-200/80 shadow-[0_16px_40px_rgba(99,102,241,0.08)] p-6 space-y-6">
 
         <div class="relative w-full h-44 rounded-2xl bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500 overflow-hidden flex items-center justify-center">
-          <span class="text-5xl font-extrabold text-white/90">{{ course.title|slice:":1"|upper }}</span>
+          <img src="{% static 'images/courses/' %}{{ course.slug }}.svg" alt="{{ course.title }}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='{% static 'images/courses/default-course.svg' %}';" loading="lazy"/>
           <span class="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-black/60 text-white text-[10px] font-mono">
             Course Access
           </span>

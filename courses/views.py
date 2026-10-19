@@ -181,7 +181,9 @@ class LandingTemplateView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["featured_courses"] = Course.objects.filter(status=Course.STATUS_PUBLISHED)[:6]
+        context["featured_courses"] = Course.objects.filter(status=Course.STATUS_PUBLISHED).annotate(
+            lessons_count=Count("modules__lessons")
+        )[:6]
         context["categories"] = Category.objects.filter(is_active=True).annotate(
             published_courses_count=Count("courses", filter=Q(courses__status=Course.STATUS_PUBLISHED))
         )

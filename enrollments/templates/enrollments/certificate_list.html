@@ -1,10 +1,63 @@
 {% extends 'base.html' %}
 
-{% block title %}My Certificates{% endblock %}
+{% block title %}My Certificates — Learnix{% endblock %}
 
 {% block content %}
-<h2>My Certificates</h2>
-{% for certificate in certificates %}
-<p>{{ certificate.course_title }} - {{ certificate.completion_date }}</p>
-{% endfor %}
+<div class="max-w-7xl mx-auto px-4 md:px-8 py-8">
+
+  <div class="mb-8">
+    <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[#0f172a]">
+      My Certificates
+    </h1>
+    <p class="text-slate-600 text-sm md:text-base max-w-2xl mt-2 leading-relaxed">
+      Your earned certificates of completion. Share the verification link anywhere.
+    </p>
+  </div>
+
+  {% if certificates %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for certificate in certificates %}
+    <div class="group relative rounded-3xl p-6 bg-white/80 backdrop-blur-xl border border-white/90 shadow-[0_14px_35px_rgba(79,70,229,0.07)] hover:shadow-[0_20px_45px_rgba(6,182,212,0.15)] hover:border-cyan-300 transition-all duration-300 flex flex-col justify-between">
+
+      <div class="flex flex-col">
+        <div class="relative w-full h-36 rounded-2xl overflow-hidden bg-gradient-to-br from-violet-600 via-indigo-600 to-cyan-500 mb-5 flex items-center justify-center">
+          <span class="material-symbols-outlined text-white/90 text-5xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+          <div class="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md shadow-xs border border-white/60 text-emerald-800 font-mono text-[11px] font-bold flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            VERIFIED
+          </div>
+        </div>
+
+        <h3 class="text-lg font-bold text-[#0f172a] tracking-tight group-hover:text-violet-700 transition-colors mb-1">
+          {{ certificate.course_title }}
+        </h3>
+        <p class="text-xs text-slate-500 mb-1">
+          Completed {{ certificate.completion_date|date:"F d, Y" }}
+        </p>
+        <p class="text-[11px] font-mono text-slate-400 truncate mb-6">
+          {{ certificate.verification_id }}
+        </p>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100">
+        <a href="{% url 'certificate-verify' certificate.verification_id %}" class="w-full py-2.5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 hover:opacity-95 text-white text-xs font-bold shadow-sm transition-all flex items-center justify-center gap-1.5">
+          <span>View Certificate</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="rounded-3xl p-12 bg-white/80 backdrop-blur-xl border border-white/90 text-center">
+    <span class="material-symbols-outlined text-5xl text-slate-300" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+    <p class="text-slate-600 font-semibold mt-4">No certificates yet.</p>
+    <p class="text-xs text-slate-400 mt-1">Complete a course to earn your first certificate!</p>
+    <a href="{% url 'my-learning' %}" class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-bold shadow-md hover:scale-105 transition-all">
+      <span>Go to My Learning</span>
+      <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+    </a>
+  </div>
+  {% endif %}
+</div>
 {% endblock %}

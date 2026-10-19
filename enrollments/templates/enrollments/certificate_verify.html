@@ -1,10 +1,87 @@
 {% extends 'base.html' %}
 
-{% block title %}Verify Certificate{% endblock %}
+{% block title %}Verify Certificate — Learnix{% endblock %}
 
 {% block content %}
-<h2>Certificate Valid ✅</h2>
-<p>Student: {{ certificate.student_name }}</p>
-<p>Course: {{ certificate.course_title }}</p>
-<p>Completed: {{ certificate.completion_date }}</p>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+
+  <!-- Verification Status -->
+  <div class="flex flex-col items-center text-center mb-8">
+    <div class="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center mb-4">
+      <span class="material-symbols-outlined text-emerald-600 text-4xl" style="font-variation-settings: 'FILL' 1;">verified</span>
+    </div>
+    <h1 class="text-2xl md:text-3xl font-extrabold text-[#0f172a] tracking-tight">Certificate Valid</h1>
+    <p class="text-sm text-slate-600 mt-2 max-w-xl leading-relaxed">
+      Issued on <strong class="text-slate-900 font-bold">{{ certificate.completion_date|date:"F d, Y" }}</strong> to
+      <strong class="text-slate-900 font-bold">{{ certificate.student_name }}</strong> for
+      <span class="text-violet-700 font-semibold">{{ certificate.course_title }}</span>.
+    </p>
+    <p class="text-xs font-mono text-slate-400 mt-3">
+      Verification ID: <span class="font-bold text-violet-700">{{ certificate.verification_id }}</span>
+    </p>
+  </div>
+
+  <!-- Certificate Canvas -->
+  <div class="w-full mb-10">
+    <div class="relative w-full rounded-3xl bg-white/85 backdrop-blur-2xl shadow-2xl border border-white overflow-hidden p-4 sm:p-8 md:p-12">
+      <div class="absolute inset-0 pointer-events-none rounded-3xl bg-gradient-to-tr from-cyan-400/15 via-purple-500/15 to-pink-500/15 opacity-80"></div>
+
+      <div class="relative w-full rounded-2xl bg-white/95 backdrop-blur-xl p-6 sm:p-10 md:p-14 flex flex-col justify-between shadow-sm border border-slate-100/80 overflow-hidden">
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+          <svg class="w-[500px] h-[500px]" fill="none" viewBox="0 0 400 400">
+            <circle class="text-violet-600" cx="200" cy="200" r="180" stroke="currentColor" stroke-dasharray="6 4" stroke-width="1.5"></circle>
+            <circle class="text-cyan-500" cx="200" cy="200" r="140" stroke="currentColor" stroke-width="1"></circle>
+            <circle class="text-pink-500" cx="200" cy="200" r="100" stroke="currentColor" stroke-width="2"></circle>
+          </svg>
+        </div>
+
+        <div class="flex flex-col items-center text-center space-y-2 relative z-10">
+          <div class="relative flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-tr from-violet-600 via-cyan-500 to-pink-500 shadow-md p-1 mb-2">
+            <div class="w-full h-full rounded-full bg-white flex items-center justify-center shadow-inner">
+              <span class="material-symbols-outlined text-violet-600 text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+            </div>
+          </div>
+          <div class="font-mono text-xs tracking-widest text-violet-700 uppercase font-extrabold">Learnix Academy</div>
+          <div class="text-lg sm:text-2xl text-[#0f172a] font-extrabold tracking-tight">OFFICIAL CERTIFICATE OF COMPLETION</div>
+          <div class="w-24 h-0.5 rounded-full bg-gradient-to-r from-cyan-400 via-violet-600 to-pink-500 mt-2"></div>
+        </div>
+
+        <div class="my-8 text-center flex flex-col items-center relative z-10">
+          <span class="font-serif italic text-sm text-slate-500 mb-2">Proudly Presented to</span>
+          <div class="py-1">
+            <span class="text-3xl sm:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-slate-900 via-violet-800 to-slate-900 tracking-tight font-black drop-shadow-sm">
+              {{ certificate.student_name }}
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl mt-3 leading-relaxed">
+            For successfully completing the course
+            <strong class="text-slate-900 font-bold">{{ certificate.course_title }}</strong>
+            with distinction.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6 relative z-10 border-t border-slate-100">
+          <div class="text-center sm:text-left">
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">Completion Date</div>
+            <div class="text-sm font-bold text-slate-900">{{ certificate.completion_date|date:"F d, Y" }}</div>
+          </div>
+          <div class="text-center sm:text-right">
+            <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-1">Verification ID</div>
+            <div class="text-xs font-mono font-bold text-violet-700 break-all">{{ certificate.verification_id }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if certificate.pdf %}
+  <div class="flex justify-center">
+    <a href="{{ certificate.pdf.url }}" download class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold shadow-md transition-all">
+      <span class="material-symbols-outlined text-[18px]">download</span>
+      <span>Download PDF</span>
+    </a>
+  </div>
+  {% endif %}
+
+</div>
 {% endblock %}

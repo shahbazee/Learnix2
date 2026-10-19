@@ -1,12 +1,104 @@
 {% extends 'base.html' %}
 
-{% block title %}{% if object %}Edit Course{% else %}Create Course{% endif %}{% endblock %}
+{% block title %}{% if object %}Edit Course{% else %}Create Course{% endif %} — Learnix{% endblock %}
 
 {% block content %}
-<h2>{% if object %}Edit Course{% else %}Create Course{% endif %}</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if object %}Save{% else %}Create{% endif %}</button>
-</form>
+<div class="max-w-3xl mx-auto px-4 py-8">
+  <div class="rounded-[2.5rem] bg-white/85 backdrop-blur-2xl border border-white/90 p-8 md:p-10 shadow-[0_24px_64px_-12px_rgba(124,58,237,0.15)] relative overflow-hidden">
+
+    <div class="absolute -top-16 -right-16 w-40 h-40 bg-violet-400/15 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="mb-8">
+      <h1 class="text-2xl md:text-3xl font-extrabold text-[#0f172a] tracking-tight">
+        {% if object %}Edit Course{% else %}Create a New Course{% endif %}
+      </h1>
+      <p class="text-xs text-slate-500 mt-1">
+        {% if object %}Update your course details below.{% else %}Fill in the details to publish your course.{% endif %}
+      </p>
+    </div>
+
+    <form method="post" class="space-y-5">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+      <div class="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-red-700">
+        {{ form.non_field_errors }}
+      </div>
+      {% endif %}
+
+      <div>
+        <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 font-bold mb-1.5" for="{{ form.title.id_for_label }}">
+          Course Title
+        </label>
+        {{ form.title }}
+        {% if form.title.errors %}
+        <p class="text-rose-600 text-[11px] mt-1">{{ form.title.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div>
+        <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 font-bold mb-1.5" for="{{ form.slug.id_for_label }}">
+          URL Slug
+        </label>
+        {{ form.slug }}
+        {% if form.slug.errors %}
+        <p class="text-rose-600 text-[11px] mt-1">{{ form.slug.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 font-bold mb-1.5" for="{{ form.category.id_for_label }}">
+            Category
+          </label>
+          {{ form.category }}
+          {% if form.category.errors %}
+          <p class="text-rose-600 text-[11px] mt-1">{{ form.category.errors.0 }}</p>
+          {% endif %}
+        </div>
+
+        <div>
+          <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 font-bold mb-1.5" for="{{ form.price.id_for_label }}">
+            Price (USD)
+          </label>
+          {{ form.price }}
+          {% if form.price.errors %}
+          <p class="text-rose-600 text-[11px] mt-1">{{ form.price.errors.0 }}</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-mono uppercase tracking-wider text-slate-600 font-bold mb-1.5" for="{{ form.summary.id_for_label }}">
+          Summary
+        </label>
+        {{ form.summary }}
+        {% if form.summary.errors %}
+        <p class="text-rose-600 text-[11px] mt-1">{{ form.summary.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div class="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-200">
+        {{ form.is_free }}
+        <label class="text-xs font-semibold text-slate-700" for="{{ form.is_free.id_for_label }}">
+          This is a free course
+        </label>
+        {% if form.is_free.errors %}
+        <p class="text-rose-600 text-[11px]">{{ form.is_free.errors.0 }}</p>
+        {% endif %}
+      </div>
+
+      <div class="pt-2 flex items-center gap-3">
+        <button type="submit" class="flex-1 py-3.5 px-6 rounded-full bg-gradient-to-r from-violet-600 via-indigo-600 to-cyan-500 text-white font-bold text-sm shadow-[0_8px_20px_-4px_rgba(124,58,237,0.4)] hover:shadow-[0_12px_24px_-4px_rgba(124,58,237,0.5)] hover:scale-[1.01] transition-all flex items-center justify-center gap-2">
+          <span>{% if object %}Save Changes{% else %}Create Course{% endif %}</span>
+          <span class="material-symbols-outlined text-[18px]">{% if object %}save{% else %}add_circle{% endif %}</span>
+        </button>
+        <a href="{% url 'home' %}" class="px-6 py-3.5 rounded-full border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all">
+          Cancel
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>
 {% endblock %}

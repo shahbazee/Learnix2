@@ -1,18 +1,62 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ lesson.title }}{% endblock %}
+{% block title %}{{ lesson.title }} — Learnix{% endblock %}
 
 {% block content %}
-<h2>{{ lesson.title }}</h2>
-<p>{{ lesson.body }}</p>
-{% if not_enrolled %}
-<p>Enroll in this course to track progress.</p>
-{% elif is_completed %}
-<p>Completed ✅</p>
-{% else %}
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Mark as Complete</button>
-</form>
-{% endif %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+
+  <nav class="flex items-center gap-2 text-xs font-medium text-slate-400 mb-6" aria-label="Breadcrumb">
+    <a href="{% url 'home' %}" class="hover:text-slate-700 transition-colors">Catalog</a>
+    <span class="text-slate-300">/</span>
+    <a href="{% url 'course-detail' lesson.module.course.slug %}" class="hover:text-slate-700 transition-colors truncate max-w-[200px]">{{ lesson.module.course.title }}</a>
+    <span class="text-slate-300">/</span>
+    <span class="text-slate-900 font-bold truncate max-w-[220px]">{{ lesson.title }}</span>
+  </nav>
+
+  <div class="rounded-3xl bg-white/85 backdrop-blur-2xl border border-white/90 shadow-[0_24px_64px_-12px_rgba(124,58,237,0.12)] p-6 sm:p-10">
+
+    <div class="flex items-center gap-2 mb-4">
+      <span class="px-3 py-1 rounded-full bg-violet-100 text-violet-700 text-xs font-bold">
+        Module {{ lesson.module.position }} · Lesson {{ lesson.position }}
+      </span>
+      {% if is_completed %}
+      <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center gap-1">
+        <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        Completed
+      </span>
+      {% endif %}
+    </div>
+
+    <h1 class="text-2xl sm:text-4xl font-extrabold text-[#0f172a] tracking-tight mb-6">
+      {{ lesson.title }}
+    </h1>
+
+    <div class="prose prose-slate max-w-none text-sm sm:text-base text-slate-700 leading-relaxed">
+      {{ lesson.body|linebreaks }}
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-slate-100">
+      {% if not_enrolled %}
+      <div class="rounded-2xl bg-amber-50 border border-amber-200 p-5 flex items-center gap-3">
+        <span class="material-symbols-outlined text-amber-600 text-2xl">info</span>
+        <p class="text-sm text-amber-800 font-medium">Enroll in this course to track your progress.</p>
+      </div>
+      {% elif is_completed %}
+      <div class="rounded-2xl bg-emerald-50 border border-emerald-200 p-5 flex items-center gap-3">
+        <span class="material-symbols-outlined text-emerald-600 text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        <p class="text-sm text-emerald-800 font-semibold">Lesson completed. Great work!</p>
+      </div>
+      {% else %}
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-gradient-to-r from-violet-600 to-cyan-500 hover:opacity-95 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">check_circle</span>
+          <span>Mark as Complete</span>
+        </button>
+      </form>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
 {% endblock %}

@@ -7,7 +7,9 @@
       "display_name": "Elena Rostova",
       "role": "instructor",
       "password": "!",
-      "email_verified": true
+      "email_verified": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -18,7 +20,9 @@
       "display_name": "Alex Vance",
       "role": "instructor",
       "password": "!",
-      "email_verified": true
+      "email_verified": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -29,7 +33,9 @@
       "display_name": "Marcus Jin",
       "role": "instructor",
       "password": "!",
-      "email_verified": true
+      "email_verified": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -40,7 +46,9 @@
       "display_name": "Sarah Lin",
       "role": "instructor",
       "password": "!",
-      "email_verified": true
+      "email_verified": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -51,7 +59,9 @@
       "display_name": "Devon Hayes",
       "role": "instructor",
       "password": "!",
-      "email_verified": true
+      "email_verified": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -61,7 +71,9 @@
       "name": "Python & Django",
       "slug": "python-django",
       "description": "",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -71,7 +83,9 @@
       "name": "Machine Learning & LLMs",
       "slug": "ml-llms",
       "description": "",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -81,7 +95,9 @@
       "name": "System Design",
       "slug": "system-design",
       "description": "",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -91,7 +107,9 @@
       "name": "Cloud & DevOps",
       "slug": "cloud-devops",
       "description": "",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -101,7 +119,9 @@
       "name": "Zero-Trust Security",
       "slug": "security",
       "description": "",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -111,7 +131,9 @@
       "name": "Distributed Data",
       "slug": "distributed-data",
       "description": "",
-      "is_active": true
+      "is_active": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -126,7 +148,9 @@
       "price": "89.00",
       "is_free": false,
       "status": "published",
-      "published_at": null
+      "published_at": null,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -136,7 +160,9 @@
       "course": 1,
       "title": "Foundations: Asynchronous Django & Channels",
       "description": "",
-      "position": 1
+      "position": 1,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -147,7 +173,9 @@
       "title": "1.1 Architecture Overview & ASGI Event Loops",
       "body": "Lesson content for '1.1 Architecture Overview & ASGI Event Loops'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -158,7 +186,9 @@
       "title": "1.2 WebSockets & ASGI Handlers Setup",
       "body": "Lesson content for '1.2 WebSockets & ASGI Handlers Setup'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -169,7 +199,9 @@
       "title": "1.3 Redis Pub/Sub Layer Integration",
       "body": "Lesson content for '1.3 Redis Pub/Sub Layer Integration'. Detailed material will be added by the instructor.",
       "position": 3,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -180,7 +212,9 @@
       "title": "1.4 ASGI Middleware & Cryptographic Handshakes",
       "body": "Lesson content for '1.4 ASGI Middleware & Cryptographic Handshakes'. Detailed material will be added by the instructor.",
       "position": 4,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -190,7 +224,9 @@
       "course": 1,
       "title": "Agentic Workflows with LangGraph & Django",
       "description": "",
-      "position": 2
+      "position": 2,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -201,7 +237,9 @@
       "title": "2.1 Multi-Agent State Graph Architecture",
       "body": "Lesson content for '2.1 Multi-Agent State Graph Architecture'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -212,7 +250,9 @@
       "title": "2.2 Tool Calling & ReAct Execution Loops",
       "body": "Lesson content for '2.2 Tool Calling & ReAct Execution Loops'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -223,7 +263,9 @@
       "title": "2.3 Human-in-the-Loop Interrupt Workflows",
       "body": "Lesson content for '2.3 Human-in-the-Loop Interrupt Workflows'. Detailed material will be added by the instructor.",
       "position": 3,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -233,7 +275,9 @@
       "course": 1,
       "title": "Vector Databases & Hybrid Search Indexing",
       "description": "",
-      "position": 3
+      "position": 3,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -244,7 +288,9 @@
       "title": "3.1 Qdrant Vector Cluster Deployment",
       "body": "Lesson content for '3.1 Qdrant Vector Cluster Deployment'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -255,7 +301,9 @@
       "title": "3.2 Dense vs Sparse Vector Hybrids",
       "body": "Lesson content for '3.2 Dense vs Sparse Vector Hybrids'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -270,7 +318,9 @@
       "price": "99.00",
       "is_free": false,
       "status": "published",
-      "published_at": null
+      "published_at": null,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -280,7 +330,9 @@
       "course": 2,
       "title": "Raft Consensus & Distributed Log Replication",
       "description": "",
-      "position": 1
+      "position": 1,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -291,7 +343,9 @@
       "title": "1.1 Leader Election State Transitions",
       "body": "Lesson content for '1.1 Leader Election State Transitions'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -302,7 +356,9 @@
       "title": "1.2 Log Invariants & Snapshotting",
       "body": "Lesson content for '1.2 Log Invariants & Snapshotting'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -313,7 +369,9 @@
       "title": "1.3 Network Split-Brain Simulations",
       "body": "Lesson content for '1.3 Network Split-Brain Simulations'. Detailed material will be added by the instructor.",
       "position": 3,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -323,7 +381,9 @@
       "course": 2,
       "title": "High-Performance Sharding Topologies",
       "description": "",
-      "position": 2
+      "position": 2,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -334,7 +394,9 @@
       "title": "2.1 Consistent Hashing with Virtual Nodes",
       "body": "Lesson content for '2.1 Consistent Hashing with Virtual Nodes'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -345,7 +407,9 @@
       "title": "2.2 Multi-Paxos and Dynamic Membership",
       "body": "Lesson content for '2.2 Multi-Paxos and Dynamic Membership'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -360,7 +424,9 @@
       "price": "119.00",
       "is_free": false,
       "status": "published",
-      "published_at": null
+      "published_at": null,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -370,7 +436,9 @@
       "course": 3,
       "title": "Advanced Operator SDK & Custom Resource Controllers",
       "description": "",
-      "position": 1
+      "position": 1,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -381,7 +449,9 @@
       "title": "1.1 Controller-Runtime Architecture",
       "body": "Lesson content for '1.1 Controller-Runtime Architecture'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -392,7 +462,9 @@
       "title": "1.2 Reconcile Loops & Finalizers",
       "body": "Lesson content for '1.2 Reconcile Loops & Finalizers'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -403,7 +475,9 @@
       "title": "1.3 Multi-Cluster Global Ingress Meshes",
       "body": "Lesson content for '1.3 Multi-Cluster Global Ingress Meshes'. Detailed material will be added by the instructor.",
       "position": 3,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -418,7 +492,9 @@
       "price": "95.00",
       "is_free": false,
       "status": "published",
-      "published_at": null
+      "published_at": null,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -428,7 +504,9 @@
       "course": 4,
       "title": "Quantized Model LoRA Architectures",
       "description": "",
-      "position": 1
+      "position": 1,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -439,7 +517,9 @@
       "title": "1.1 4-bit NormalFloat & Double Quantization",
       "body": "Lesson content for '1.1 4-bit NormalFloat & Double Quantization'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -450,7 +530,9 @@
       "title": "1.2 Supervised Fine-Tuning on Custom Corpora",
       "body": "Lesson content for '1.2 Supervised Fine-Tuning on Custom Corpora'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -465,7 +547,9 @@
       "price": "79.00",
       "is_free": false,
       "status": "published",
-      "published_at": null
+      "published_at": null,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -475,7 +559,9 @@
       "course": 5,
       "title": "Identity Foundation & Cryptographic Tokens",
       "description": "",
-      "position": 1
+      "position": 1,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -486,7 +572,9 @@
       "title": "1.1 PKCE Authorization Code Flows",
       "body": "Lesson content for '1.1 PKCE Authorization Code Flows'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -497,7 +585,9 @@
       "title": "1.2 Mutual TLS & SPIFFE/SPIRE Attestation",
       "body": "Lesson content for '1.2 Mutual TLS & SPIFFE/SPIRE Attestation'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -512,7 +602,9 @@
       "price": "119.00",
       "is_free": false,
       "status": "published",
-      "published_at": null
+      "published_at": null,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -522,7 +614,9 @@
       "course": 6,
       "title": "Vector Indexing Math & HNSW Graphs",
       "description": "",
-      "position": 1
+      "position": 1,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -533,7 +627,9 @@
       "title": "1.1 Approximate Nearest Neighbor Math",
       "body": "Lesson content for '1.1 Approximate Nearest Neighbor Math'. Detailed material will be added by the instructor.",
       "position": 1,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   },
   {
@@ -544,7 +640,9 @@
       "title": "1.2 Product Quantization & Cache Alignment",
       "body": "Lesson content for '1.2 Product Quantization & Cache Alignment'. Detailed material will be added by the instructor.",
       "position": 2,
-      "is_published": true
+      "is_published": true,
+      "created_at": "2026-10-19T12:00:00Z",
+      "updated_at": "2026-10-19T12:00:00Z"
     }
   }
 ]
